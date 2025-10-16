@@ -12,10 +12,15 @@ const result = document.getElementById("result");
 amount.addEventListener('input', function (e) {
     const hasCharactersRegex = /\D+/g;
     amount.value = amount.value.replace(hasCharactersRegex, '');
-    });
+});
 
-form.onsubmit =  (event) => {
+form.onsubmit = (event) => {
     event.preventDefault();
+
+    // Validação antes da conversão
+    if (!amount.value || isNaN(amount.value) || amount.value <= 0) {
+        return alert("Por favor, insira um valor válido.");
+    }
 
     switch(currency.value){
         case "USD":
@@ -30,30 +35,32 @@ form.onsubmit =  (event) => {
     }
 }
 
-function convertCurrency(amount , price, symbol) {
- try{
-    description.textContent = `${symbol} 1 = ${formatCurrencyBRL(price)} `;
+function convertCurrency(amount, price, symbol) {
+    try {
+        // Corrigido: mostra apenas o símbolo da moeda estrangeira
+        description.textContent = `${symbol} 1 = ${formatCurrencyBRL(price)}`;
 
-    let total = (amount * price).toFixed(2);
-    result.textContent = ` ${formatCurrencyBRL (total)} `;
+        let total = amount * price;
+        
+        // Validação antes de usar o resultado
+        if (isNaN(total)) {
+            footer.classList.remove("show-result");
+            return alert("Por favor, insira um valor válido.");
+        }
 
-    if (isNaN(total)){
-        return alert("Por favor, insira um valor válido.");
-    };
+        result.textContent = formatCurrencyBRL(total);
+        footer.classList.add("show-result"); 
 
-    footer.classList.add("show-result"); 
-
-}catch(error){
-     
-     footer.classList.remove("show-result");
-     console.log(error);  
-     alert("Ocorreu um erro, tente novamente mais tarde.");
-   
+    } catch(error) {
+        footer.classList.remove("show-result");
+        console.log(error);  
+        alert("Ocorreu um erro, tente novamente mais tarde.");
     }
 }
-function formatCurrencyBRL(value){
-    return Number(value).toLocaleString('pt-BR', {
-         style: 'currency',
-         currency: 'BRL' });
 
+function formatCurrencyBRL(value) {
+    return Number(value).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    });
 }
