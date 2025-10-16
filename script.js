@@ -35,7 +35,7 @@ function convertCurrency(amount , price, symbol) {
     description.textContent = `${symbol} 1 = ${formatCurrencyBRL(price)} `;
 
     let total = (amount * price).toFixed(2);
-    result.textContent = `R$ ${formatCurrencyBRL (total)} `;
+    result.textContent = ` ${formatCurrencyBRL (total)} `;
 
     if (isNaN(total)){
         return alert("Por favor, insira um valor válido.");
