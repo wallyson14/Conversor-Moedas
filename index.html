@@ -12,19 +12,22 @@
       rel="stylesheet"
     />
 
+    <!-- Adicione o favicon para resolver o 404 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+
     <link rel="stylesheet" href="styles.css" />
 
-    <title>Convert</title>
+    <title>Conversor de Moedas</title>
   </head>
   <body>
     <img src="./img/logo.svg" alt="Convert logo" />
 
     <main>
       <form>
-        <label for="amount">valor</label>
-        <input type="text" name="amount" id="amount" placeholder="0" required />
+        <label for="amount">Valor para Converter</label>
+        <input type="text" name="amount" id="amount" placeholder="0,00" required />
 
-        <label for="currency">moeda</label>
+        <label for="currency">Moeda</label>
         <select name="currency" id="currency" required>
           <option value="" disabled selected hidden>Selecione a moeda</option>
           <option value="USD">Dólar Americano</option>
@@ -32,13 +35,15 @@
           <option value="GBP">Libra Esterlina</option>
         </select>
 
-        <button type="submit">Converter em reais</button>
+        <button type="submit">Converter em Reais</button>
       </form>
 
-      <footer>
-        <span id="description">US$ 1 = R$ 4,86</span>
-        <h1 id="result">486,00 Reais</h1>
+      <footer class="show-result">
+        <span id="description"></span>
+        <h1 id="result"></h1>
       </footer>
     </main>
+
+    <script src="script.js"></script>
   </body>
 </html>
